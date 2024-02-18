@@ -7,6 +7,8 @@ p = sync_playwright().start()
 
 id = input("아이디(ID) : ")
 password = input("비밀번호(Password) : ")
+repository = input("커밋 할 Repository를 입력하세요. : ")
+commit = input("커밋 제목을 입력하세요. : ")
 
 browser = p.chromium.launch(headless=False)
 
@@ -31,25 +33,17 @@ smsCode = input("Authentication code : ")
 
 page.fill("input#sms_totp", smsCode)
 
-time.sleep(5)
+time.sleep(3)
 
-# page.click("button[name=button]")
-
-# time.sleep(3)
-
-# page.click(f'a[href="/{id}/AutoCommit"]')
-
-page.goto(f"https://github.com/{id}/AutoCommit/new/main")
+page.goto(f"https://github.com/{id}/{repository}/new/main")
 
 time.sleep(5)
-
-commit = input("커밋 제목을 입력하세요. : ")
 
 page.get_by_placeholder("Name your file...").fill(commit)
 
 page.fill("div[class=cm-line]", ".")
 
-time.sleep(3)
+time.sleep(1)
 
 page.click('button[data-hotkey="Mod+s"]')
 
